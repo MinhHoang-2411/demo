@@ -159,7 +159,10 @@ const login = () => {
                       checked={formik.values.agreeServiceAndPrivacyPolicy}
                       id="agreeServiceAndPrivacyPolicy"
                     ></input>
-                    <label className="ml-2 text-xs">
+                    <label
+                      htmlFor="agreeServiceAndPrivacyPolicy"
+                      className="ml-2 text-xs"
+                    >
                       I agree to the <Link href="/#">Terms of Service</Link> and{" "}
                       <Link href="/#">Privacy Policy</Link>
                     </label>
