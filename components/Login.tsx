@@ -2,7 +2,6 @@
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import Link from "next/link";
 import {useState} from "react";
-import * as Yup from "yup";
 import {loginInitialValues, loginValidationSchema} from "../Schema";
 import ShowPwdIcon from "./Icons/ShowPwdIcon";
 import UnShowPwdIcon from "./Icons/UnShowPwdIcon";
@@ -73,7 +72,7 @@ const Login = () => {
                           ? "primary-button"
                           : "disabled-button"
                       }
-                      disabled={!formik.isValid && !formik.dirty}
+                      disabled={!formik.isValid || !formik.dirty}
                     >
                       Continue
                     </button>
