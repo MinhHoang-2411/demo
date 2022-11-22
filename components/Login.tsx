@@ -1,22 +1,35 @@
 /* eslint-disable react/no-unescaped-entities */
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import Link from "next/link";
+import {useRouter} from "next/router";
 import {useState} from "react";
+import {useDispatch} from "react-redux";
+import {login} from "../api/auth";
 import {loginInitialValues, loginValidationSchema} from "../Schema";
 import ShowPwdIcon from "./Icons/ShowPwdIcon";
 import UnShowPwdIcon from "./Icons/UnShowPwdIcon";
+import {useSelector} from "react-redux";
+import {IAuthState} from "../redux/store";
 
 const Login = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [showPassword, setShowPassWord] = useState(false);
-
-  return (
+  const dispatch = useDispatch();
+  const navigate = useRouter().push;
+  const currentUser = useSelector(
+    (state: IAuthState) => state.auth.currentUser
+  );
+  if (currentUser) {
+    navigate("/");
+  }
+  return currentUser ? (
+    <h1>loading...</h1>
+  ) : (
     <div className="sm:bg-slate-50 p-10 sm:flex flex-col justify-center items-center min-w-full min-h-screen">
       <Formik
         initialValues={loginInitialValues}
         validationSchema={loginValidationSchema}
         onSubmit={(values) => {
-          console.log(values.email, values.password);
+          login({user: values, dispatch, navigate});
         }}
       >
         {(formik) => {
